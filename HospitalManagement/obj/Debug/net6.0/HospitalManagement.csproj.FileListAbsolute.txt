@@ -1,0 +1,14 @@
+C:\Users\spott\OneDrive\Desktop\.NET\A1 Hospital\HospitalManagement\HospitalManagement\bin\Debug\net6.0\HospitalManagement.exe
+C:\Users\spott\OneDrive\Desktop\.NET\A1 Hospital\HospitalManagement\HospitalManagement\bin\Debug\net6.0\HospitalManagement.deps.json
+C:\Users\spott\OneDrive\Desktop\.NET\A1 Hospital\HospitalManagement\HospitalManagement\bin\Debug\net6.0\HospitalManagement.runtimeconfig.json
+C:\Users\spott\OneDrive\Desktop\.NET\A1 Hospital\HospitalManagement\HospitalManagement\bin\Debug\net6.0\HospitalManagement.dll
+C:\Users\spott\OneDrive\Desktop\.NET\A1 Hospital\HospitalManagement\HospitalManagement\bin\Debug\net6.0\HospitalManagement.pdb
+C:\Users\spott\OneDrive\Desktop\.NET\A1 Hospital\HospitalManagement\HospitalManagement\obj\Debug\net6.0\HospitalManagement.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\spott\OneDrive\Desktop\.NET\A1 Hospital\HospitalManagement\HospitalManagement\obj\Debug\net6.0\HospitalManagement.AssemblyInfoInputs.cache
+C:\Users\spott\OneDrive\Desktop\.NET\A1 Hospital\HospitalManagement\HospitalManagement\obj\Debug\net6.0\HospitalManagement.AssemblyInfo.cs
+C:\Users\spott\OneDrive\Desktop\.NET\A1 Hospital\HospitalManagement\HospitalManagement\obj\Debug\net6.0\HospitalManagement.csproj.CoreCompileInputs.cache
+C:\Users\spott\OneDrive\Desktop\.NET\A1 Hospital\HospitalManagement\HospitalManagement\obj\Debug\net6.0\HospitalManagement.dll
+C:\Users\spott\OneDrive\Desktop\.NET\A1 Hospital\HospitalManagement\HospitalManagement\obj\Debug\net6.0\refint\HospitalManagement.dll
+C:\Users\spott\OneDrive\Desktop\.NET\A1 Hospital\HospitalManagement\HospitalManagement\obj\Debug\net6.0\HospitalManagement.pdb
+C:\Users\spott\OneDrive\Desktop\.NET\A1 Hospital\HospitalManagement\HospitalManagement\obj\Debug\net6.0\HospitalManagement.genruntimeconfig.cache
+C:\Users\spott\OneDrive\Desktop\.NET\A1 Hospital\HospitalManagement\HospitalManagement\obj\Debug\net6.0\ref\HospitalManagement.dll
