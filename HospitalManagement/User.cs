@@ -1,9 +1,21 @@
-﻿namespace HospitalManagement
+﻿using System.Net;
+
+namespace HospitalManagement
 {
-    abstract class User
+    public abstract class User
     {
-        int userId;
-        string fullName;
+        public int userId;
+        public string password, fullName, email, phoneNo, address;
+
+        public User(int userId, string password, string fullName, string email, string phoneNo, string address)
+        {
+            this.userId = userId;
+            this.password = password;
+            this.fullName = fullName;
+            this.email = email;
+            this.phoneNo = phoneNo;
+            this.address = address;
+        }
 
         void exitApp()
         {
@@ -13,12 +25,15 @@
 
     class Admin : User
     {
-        string fullName = "admin";
-
         //Constructor
-        public Admin() 
+        public Admin(int userId, string password, string fullName, string email, string phoneNo, string address) : base(userId, password, fullName, email, phoneNo, address)
         {
-            
+            this.userId = userId;
+            this.password = password;
+            this.fullName = fullName;
+            this.email = email;
+            this.phoneNo = phoneNo;
+            this.address = address;
         }
         public void UserMenu()
         {
@@ -48,7 +63,16 @@
 
     class Doctor : User
     {
-        string fullName = "doctor";
+        //Constructor
+        public Doctor(int userId, string password, string fullName, string email, string phoneNo, string address) : base(userId, password, fullName, email, phoneNo, address)
+        {
+            this.userId = userId;
+            this.password = password;
+            this.fullName = fullName;
+            this.email = email;
+            this.phoneNo = phoneNo;
+            this.address = address;
+        }
 
         public void UserMenu()
         {
@@ -60,7 +84,16 @@
 
     class Patient : User
     {
-        string fullName = "patient";
+        //Constructor
+        public Patient(int userId, string password, string fullName, string email, string phoneNo, string address) : base(userId, password, fullName, email, phoneNo, address)
+        {
+            this.userId = userId;
+            this.password = password;
+            this.fullName = fullName;
+            this.email = email;
+            this.phoneNo = phoneNo;
+            this.address = address;
+        }
         public void UserMenu()
         {
             Utils.MenuHeader("Patient Menu");
