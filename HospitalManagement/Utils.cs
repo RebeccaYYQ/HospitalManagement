@@ -23,17 +23,17 @@ namespace HospitalManagement
             string password;
 
             do
-            {   
-                 Console.Write("User ID: ");
-                    userId = Convert.ToInt32(Console.ReadLine());
-                    Console.Write("Password: ");
-                    password = Console.ReadLine();
-               
-                    //Console.WriteLine("Please input numbers for the user ID\n");
-                  
+            {
+                Console.Write("User ID: ");
+                userId = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Password: ");
+                password = Console.ReadLine();
+
+                //Console.WriteLine("Please input numbers for the user ID\n");
+
             } while (!LoginCheck(userId, password));
 
-            Console.WriteLine("Valid Credentials");
+            Console.WriteLine("Login successful");
             Console.ReadKey();
 
             return userId;
@@ -42,17 +42,16 @@ namespace HospitalManagement
         //returns true when there is a valid credential.
         static Boolean LoginCheck(int userId, string password)
         {
-            Console.WriteLine("LoginCheck is called");
             //Retrieves all files
             //finds ID
             //If ID is incorrect
             //Console.WriteLine("Invalid ID. Please try again.")
 
-            if (userId == 000001 && password == "admin")
+            if (userId == 0 && password == "admin")
             {
                 return true;
             } 
-            else if (userId == 100001 && password == "doctor") {
+            else if (userId == 1 && password == "doctor") {
                 return true;
             }
             else
