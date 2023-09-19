@@ -41,8 +41,9 @@ namespace HospitalManagement
             Console.WriteLine("Welcome to the DOTNET Hospital Management System, {0}", fullName);
             Console.WriteLine();
             Console.WriteLine("Please choose an option:");
-            Console.WriteLine("7: Log out \n8: Exit\n");
-
+            Console.WriteLine("7: Log out");
+            Console.WriteLine("8: Exit\n");
+            Console.Write("Selection: ");
             string userInput = Console.ReadLine();
 
             switch (userInput)

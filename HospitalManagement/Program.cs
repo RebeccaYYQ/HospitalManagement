@@ -6,32 +6,14 @@
         {
             int userId;
 
+            //this loop enables logging in and logging out of different user accounts.
             while (true)
             {
                 Utils.MenuHeader("Login");
                 userId = Utils.Login();
 
+                //load and run the user that matches the login credentials
                 Utils.LoadAndRunUser(userId);
-
-                ////after a successful login, create the user and open their menu
-                ////if userId starts with a 0, they are an admin. Create an admin object
-                //if (userId == 0)
-                //{
-                //    Utils.LoadAndRunUser(userId);
-                //    currentUser.UserMenu();
-                //}
-                ////else if userId starts with a 1, they are a doctor
-                //else if (userId ==1)
-                //{
-                //    Doctor currentUser = new Doctor();
-                //    currentUser.UserMenu();
-                //}
-                ////else their id must start with a 2 or higher, they are a patient
-                //else
-                //{
-                //    Patient currentUser = new Patient();
-                //    currentUser.UserMenu();
-                //}
             }
             
         }

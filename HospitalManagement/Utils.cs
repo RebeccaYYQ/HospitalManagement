@@ -69,27 +69,6 @@ namespace HospitalManagement
                 Console.WriteLine("Incorrect credentials, please try again.\n");
                 return false;
             }
-
-
-
-            //Retrieves all files
-            //finds ID
-            //If ID is incorrect
-            //Console.WriteLine("Invalid ID. Please try again.")
-
-            //if (userId == 0 && password == "admin")
-            //{
-            //    return true;
-            //} 
-            //else if (userId == 1 && password == "doctor") {
-            //    return true;
-            //}
-            //else
-            //{
-            //    Console.WriteLine("Incorrect credentials, please try again.\n");
-            //    return false;
-            //}
-
         }
 
         //load the specified user, and open their user menu
@@ -110,11 +89,13 @@ namespace HospitalManagement
                 Admin currentUser = new Admin(Convert.ToInt32(fileContent[0]), fileContent[1], fileContent[2], fileContent[3], fileContent[4], fileContent[5]);
                 currentUser.UserMenu();
             }
-            if (userId == 1) {
+            //else if userId starts with a 1, create a doctor 
+            else if (userId == 1) {
                 Doctor currentUser = new Doctor(Convert.ToInt32(fileContent[0]), fileContent[1], fileContent[2], fileContent[3], fileContent[4], fileContent[5]);
                 currentUser.UserMenu();
             }
-            if (userId == 2) {
+            //else if their id starts with a 2, create a patient
+            else if (userId == 2) {
                 Patient currentUser = new Patient(Convert.ToInt32(fileContent[0]), fileContent[1], fileContent[2], fileContent[3], fileContent[4], fileContent[5]);
                 currentUser.UserMenu();
             }
