@@ -21,7 +21,7 @@ namespace HospitalManagement
         public static int Login()
         {
             string userId, password;
-            Console.WriteLine("Welcome to the DOTNET Hospital Management System.\nType 'Exit' in the userID to exit the system.\n");
+            Console.WriteLine("Welcome to the DOTNET Hospital Management System.\nType 'Exit' in the userID field to exit the system.\n");
 
             //loops until there is a valid ID, or the user enters 'Exit'
             do
@@ -112,13 +112,9 @@ namespace HospitalManagement
         public static void LoadAndRunUser(int userId)
         {
             string password, fullName, email, phoneNo, address;
+            string[] fileContent;
 
-            //read the file 
-            string fileName = string.Format("{0}.txt", userId);
-            string[] lines = File.ReadAllLines(fileName);
-
-            //split the contents into another array.
-            string[] fileContent = lines[0].Split(',');
+            fileContent = ReadFile(Convert.ToString(userId));
 
             //if the userId starts with a 0, create an admin
             if (userId == 0)
@@ -136,8 +132,18 @@ namespace HospitalManagement
                 Patient currentUser = new Patient(Convert.ToInt32(fileContent[0]), fileContent[1], fileContent[2], fileContent[3], fileContent[4], fileContent[5]);
                 currentUser.UserMenu();
             }
-            
+        }
 
+        //Reads a file and splits the data into a string array
+        public static string[] ReadFile(string fileName)
+        {
+            //read the file
+            string[] lines = File.ReadAllLines(string.Format("{0}.txt", fileName));
+
+            //split the contents into another array.
+            string[] fileContent = lines[0].Split(',');
+
+            return fileContent;
         }
     }
 }
