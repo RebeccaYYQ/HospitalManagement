@@ -47,7 +47,7 @@ namespace HospitalManagement
         //returns true when there is a valid credential.
         static Boolean LoginCheck(string userId, string password)
         {
-            string[] lines;
+            string[] lines, fileContent;
 
             //check if userID is an integer. If not, fail the case
             try
@@ -63,9 +63,7 @@ namespace HospitalManagement
             //try to retrieve a file with that userId. If not, fail the case.
             try
             {
-                //read the file 
-                string fileName = string.Format("{0}.txt", userId);
-                lines = File.ReadAllLines(fileName);
+                fileContent = ReadFile(Convert.ToString(userId));
             }
             catch (FileNotFoundException)
             {
@@ -74,8 +72,6 @@ namespace HospitalManagement
             }
 
             //if there is a user with that ID, check the password
-            string[] fileContent = lines[0].Split(',');
-
             if (password == fileContent[1])
             {
                 return true;

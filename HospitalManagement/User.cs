@@ -71,7 +71,7 @@ namespace HospitalManagement
             {
                 case "7":
                     Console.WriteLine("Logging out...");
-                    Console.ReadLine();
+                    Console.ReadKey();
                     return true;
                 case "8":
                     Environment.Exit(0);
@@ -130,7 +130,7 @@ namespace HospitalManagement
             {
                 case "6":
                     Console.WriteLine("Logging out...");
-                    Console.ReadLine();
+                    Console.ReadKey();
                     return true;
                 case "7":
                     Environment.Exit(0);
@@ -186,7 +186,7 @@ namespace HospitalManagement
             {
                 case "5":
                     Console.WriteLine("Logging out...");
-                    Console.ReadLine();
+                    Console.ReadKey();
                     return true;
                 case "6":
                     Environment.Exit(0);
