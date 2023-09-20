@@ -27,8 +27,8 @@ namespace HospitalManagement
             {
                 Console.Write("User ID: ");
                 userId = Convert.ToInt32(Console.ReadLine());
-                Console.Write("Password: ");
-                password = Console.ReadLine();
+                password = HidePassword();
+                Console.WriteLine();
 
                 //Console.WriteLine("Please input numbers for the user ID\n");
 
@@ -69,6 +69,28 @@ namespace HospitalManagement
                 Console.WriteLine("Incorrect credentials, please try again.\n");
                 return false;
             }
+        }
+
+        //Password masking
+        public static string HidePassword()
+        {
+            string password = "";
+            Console.Write("Password: ");
+
+            //gets a single key input from the user. Does not display it
+            ConsoleKeyInfo keyInput = Console.ReadKey(true);
+
+            //While the user does not hit the 'Enter' key
+            while (keyInput.Key != ConsoleKey.Enter)
+            {
+                //Add the character inputted into the password string, and write a * to show a character was typed
+                password += keyInput.KeyChar;
+                Console.Write("*");
+
+                keyInput = Console.ReadKey(true);
+            }
+
+            return password;
         }
 
         //load the specified user, and open their user menu
