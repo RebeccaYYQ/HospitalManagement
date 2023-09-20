@@ -16,11 +16,6 @@ namespace HospitalManagement
             this.phoneNo = phoneNo;
             this.address = address;
         }
-
-        void exitApp()
-        {
-            Environment.Exit(0);
-        }
     }
 
     class Admin : User

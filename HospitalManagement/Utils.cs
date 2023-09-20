@@ -20,31 +20,46 @@ namespace HospitalManagement
         //the login functionality. Repeats until user enters valid credentials. When valid, return the ID.
         public static int Login()
         {
-            int userId;
-            string password;
+            string userId, password;
+            Console.WriteLine("Welcome to the DOTNET Hospital Management System.\nType 'Exit' in the userID to exit the system.\n");
 
+            //loops until there is a valid ID, or the user enters 'Exit'
             do
             {
                 Console.Write("User ID: ");
-                userId = Convert.ToInt32(Console.ReadLine());
+                userId = Console.ReadLine();
+                //check the user did not type 'Exit'
+                if (userId == "Exit" || userId == "exit")
+                {
+                    Environment.Exit(0);
+                }
                 password = HidePassword();
                 Console.WriteLine();
-
-                //Console.WriteLine("Please input numbers for the user ID\n");
 
             } while (!LoginCheck(userId, password));
 
             Console.WriteLine("Login successful");
             Console.ReadKey();
 
-            return userId;
+            return Convert.ToInt32(userId);
         }
 
         //returns true when there is a valid credential.
-        static Boolean LoginCheck(int userId, string password)
+        static Boolean LoginCheck(string userId, string password)
         {
             string[] lines;
-            
+
+            //check if userID is an integer. If not, fail the case
+            try
+            {
+                Convert.ToInt32(userId);
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Please input numbers for the user ID.\n");
+                return false;
+            }
+
             //try to retrieve a file with that userId. If not, fail the case.
             try
             {
@@ -52,7 +67,7 @@ namespace HospitalManagement
                 string fileName = string.Format("{0}.txt", userId);
                 lines = File.ReadAllLines(fileName);
             }
-            catch (FileNotFoundException e)
+            catch (FileNotFoundException)
             {
                 Console.WriteLine("Incorrect credentials, please try again.\n");
                 return false;
