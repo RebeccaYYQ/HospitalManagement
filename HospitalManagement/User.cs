@@ -155,6 +155,7 @@ namespace HospitalManagement
             this.email = email;
             this.phoneNo = phoneNo;
             this.address = address;
+            string doctor;
         }
         //the main user menu. Repeat this until the user logs out or exits the system
         public void UserMenu()

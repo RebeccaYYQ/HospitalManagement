@@ -47,7 +47,7 @@ namespace HospitalManagement
         //returns true when there is a valid credential.
         static Boolean LoginCheck(string userId, string password)
         {
-            string[] lines, fileContent;
+            string[] fileContent;
 
             //check if userID is an integer. If not, fail the case
             try
@@ -94,10 +94,17 @@ namespace HospitalManagement
             //While the user does not hit the 'Enter' key
             while (keyInput.Key != ConsoleKey.Enter)
             {
-                //Add the character inputted into the password string, and write a * to show a character was typed
-                password += keyInput.KeyChar;
-                Console.Write("*");
-
+                //if the user hits backspace, delete a character from UI and from the string
+                if (keyInput.Key == ConsoleKey.Backspace && password.Length > 0)
+                {
+                    Console.Write("\b \b");
+                    password = password[0..^1];
+                } else
+                {
+                    //Add the character inputted into the password string, and write a * to show a character was typed
+                    password += keyInput.KeyChar;
+                    Console.Write("*");
+                }
                 keyInput = Console.ReadKey(true);
             }
 
@@ -107,24 +114,23 @@ namespace HospitalManagement
         //load the specified user, and open their user menu
         public static void LoadAndRunUser(int userId)
         {
-            string password, fullName, email, phoneNo, address;
             string[] fileContent;
 
             fileContent = ReadFile(Convert.ToString(userId));
 
-            //if the userId starts with a 0, create an admin
-            if (userId == 0)
+            //if the userId starts with a 1, create an admin
+            if (userId < 200000)
             {
                 Admin currentUser = new Admin(Convert.ToInt32(fileContent[0]), fileContent[1], fileContent[2], fileContent[3], fileContent[4], fileContent[5]);
                 currentUser.UserMenu();
             }
-            //else if userId starts with a 1, create a doctor 
-            else if (userId == 1) {
+            //else if userId starts with a 2, create a doctor 
+            else if (userId < 300000) {
                 Doctor currentUser = new Doctor(Convert.ToInt32(fileContent[0]), fileContent[1], fileContent[2], fileContent[3], fileContent[4], fileContent[5]);
                 currentUser.UserMenu();
             }
-            //else if their id starts with a 2, create a patient
-            else if (userId == 2) {
+            //else if their id starts with a 3, create a patient
+            else if (userId < 400000) {
                 Patient currentUser = new Patient(Convert.ToInt32(fileContent[0]), fileContent[1], fileContent[2], fileContent[3], fileContent[4], fileContent[5]);
                 currentUser.UserMenu();
             }
