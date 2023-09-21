@@ -1,1 +1,12 @@
+*.cache
+*.Cache
+*.DS_Store
+.DS_Store
+Desktop.iniThumbs.db
+ehthumbs.db
 .vs/
+.vscode/
+.ReSharper/
+*.nupkg
+*.cache
+*.json
