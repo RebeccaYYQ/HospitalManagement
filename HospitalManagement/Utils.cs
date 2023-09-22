@@ -1,5 +1,8 @@
-﻿using System.Net.NetworkInformation;
+﻿using System.Net;
+using System.Net.NetworkInformation;
+using System.Numerics;
 using System.Runtime.CompilerServices;
+using System.Xml.Linq;
 
 namespace HospitalManagement
 {
@@ -148,34 +151,51 @@ namespace HospitalManagement
             return fileContent;
         }
 
-        //Use to list all doctors or patients
-        public static void ListAll(string userType)
+        //List all the doctors
+        public static void ListAllDoctors()
         {
-            int wantedID;
-            // get all the txt files in the debug/net6.0 directory
-            //string[] files = Directory.GetFiles(@".", "2*.txt");
+            string[] lines;
 
-            //if the user wanted all doctors, find files that start with a 2. Else if they want patients, which start with a 3. Default to admins if nothing else.
-            if (userType == "doctors")
-            {
-                wantedID = 2;
-            }
-            else if (userType == "patients")
-            {
-                wantedID = 3;
-            }
-            else
-            {
-                wantedID = 1;
-            }
+            //all doctors have an ID starting with 2, so find files in the debug/net6.0 directory starting with 2.
+            string[] files = Directory.GetFiles(@".", "2*.txt");
 
-            string searchPattern = string.Format("{0}*.txt", wantedID);
-            string[] files = Directory.GetFiles(@".", searchPattern); 
+            //print the header
+            Utils.MenuHeader("All Doctors");
+            Console.WriteLine("All doctors registered in the DOTNET Hospital System");
+            Console.WriteLine();
+            Console.WriteLine("ID       | Name             | Email Address         | Phone      | Address                                   ");
+            Console.WriteLine("──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────");
 
+            //print out the contents of that file
             foreach (string filePath in files)
             {
-                //check if that file starts with the wanted userType code.
-                Console.WriteLine(filePath);
+                lines = File.ReadAllLines(filePath);
+                string[] fileContent = lines[0].Split(',');
+                Console.WriteLine("{0}      |{1}       | {2}       | {3} | {4}", fileContent[0], fileContent[2], fileContent[3], fileContent[4], fileContent[5]) ;
+            }
+        }
+
+        //List all the patients
+        public static void ListAllPatients()
+        {
+            string[] lines;
+
+            //all patients have an ID starting with 3, so find files in the debug/net6.0 directory starting with 3.
+            string[] files = Directory.GetFiles(@".", "3*.txt");
+
+            //print the header
+            Utils.MenuHeader("All Patients");
+            Console.WriteLine("All patients registered in the DOTNET Hospital System");
+            Console.WriteLine();
+            Console.WriteLine("ID       | Name             | Email Address         | Phone      | Address                                   ");
+            Console.WriteLine("──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────");
+
+            //print out the contents of that file
+            foreach (string filePath in files)
+            {
+                lines = File.ReadAllLines(filePath);
+                string[] fileContent = lines[0].Split(',');
+                Console.WriteLine("{0}      |{1}       | {2}       | {3} | {4}", fileContent[0], fileContent[2], fileContent[3], fileContent[4], fileContent[5]);
             }
         }
     }

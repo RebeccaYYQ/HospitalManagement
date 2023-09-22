@@ -70,10 +70,12 @@ namespace HospitalManagement
             switch (userInput)
             {
                 case "1":
-                    Utils.ListAll("doctors");
+                    Utils.ListAllDoctors();
+                    Console.ReadKey();
                     break;
-                case "2":
-                    Utils.ListAll("patients");
+                case "3":
+                    Utils.ListAllPatients();
+                    Console.ReadKey();
                     break;
                 case "7":
                     Console.WriteLine("Logging out...");
