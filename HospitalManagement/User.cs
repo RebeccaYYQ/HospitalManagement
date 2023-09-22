@@ -73,6 +73,10 @@ namespace HospitalManagement
                     Utils.ListAllDoctors();
                     Console.ReadKey();
                     break;
+                case "2":
+                    Utils.CheckDoctorDetails();
+                    Console.ReadKey();
+                    break;
                 case "3":
                     Utils.ListAllPatients();
                     Console.ReadKey();

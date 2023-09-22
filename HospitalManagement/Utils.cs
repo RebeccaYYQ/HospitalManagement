@@ -198,5 +198,24 @@ namespace HospitalManagement
                 Console.WriteLine("{0}      |{1}       | {2}       | {3} | {4}", fileContent[0], fileContent[2], fileContent[3], fileContent[4], fileContent[5]);
             }
         }
+
+        //method to check a specific doctor, using ID.
+        public static void CheckDoctorDetails()
+        {
+            string userInput;
+
+            MenuHeader("Doctor Details");
+            Console.WriteLine("Please enter the ID of the doctor who's details you are checking.");
+            Console.WriteLine("Enter 'Exit' to return to the menu.");
+
+            Console.Write("ID: ");
+            userInput = Console.ReadLine();
+
+            //continue until the user exits.
+            while (userInput != "exit" || userInput != "Exit")
+            {
+                
+            }
+        }
     }
 }
