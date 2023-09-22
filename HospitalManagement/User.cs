@@ -69,6 +69,12 @@ namespace HospitalManagement
 
             switch (userInput)
             {
+                case "1":
+                    Utils.ListAll("doctors");
+                    break;
+                case "2":
+                    Utils.ListAll("patients");
+                    break;
                 case "7":
                     Console.WriteLine("Logging out...");
                     Console.ReadKey();

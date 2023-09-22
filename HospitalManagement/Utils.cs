@@ -147,5 +147,36 @@ namespace HospitalManagement
 
             return fileContent;
         }
+
+        //Use to list all doctors or patients
+        public static void ListAll(string userType)
+        {
+            int wantedID;
+            // get all the txt files in the debug/net6.0 directory
+            //string[] files = Directory.GetFiles(@".", "2*.txt");
+
+            //if the user wanted all doctors, find files that start with a 2. Else if they want patients, which start with a 3. Default to admins if nothing else.
+            if (userType == "doctors")
+            {
+                wantedID = 2;
+            }
+            else if (userType == "patients")
+            {
+                wantedID = 3;
+            }
+            else
+            {
+                wantedID = 1;
+            }
+
+            string searchPattern = string.Format("{0}*.txt", wantedID);
+            string[] files = Directory.GetFiles(@".", searchPattern); 
+
+            foreach (string filePath in files)
+            {
+                //check if that file starts with the wanted userType code.
+                Console.WriteLine(filePath);
+            }
+        }
     }
 }
