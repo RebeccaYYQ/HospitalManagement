@@ -26,7 +26,7 @@ namespace HospitalManagement
             string userId, password;
             Console.WriteLine("Welcome to the DOTNET Hospital Management System.\nType 'Exit' in the userID field to exit the system.\n");
 
-            //loops until there is a valid ID, or the user enters 'Exit'
+            //loops until there is a valid login, or the user enters 'Exit'
             do
             {
                 Console.Write("User ID: ");
@@ -36,10 +36,11 @@ namespace HospitalManagement
                 {
                     Environment.Exit(0);
                 }
-                password = HidePassword();
-                Console.WriteLine();
 
-            } while (!LoginCheck(userId, password));
+                //get the user password. As they enter it, hide their input with *
+                password = GetAndHidePassword();
+                Console.WriteLine();
+            } while (!CheckLogin(userId, password));
 
             Console.WriteLine("Login successful");
             Console.ReadKey();
@@ -48,29 +49,13 @@ namespace HospitalManagement
         }
 
         //returns true when there is a valid credential.
-        static Boolean LoginCheck(string userId, string password)
+        static Boolean CheckLogin(string userId, string password)
         {
-            string[] fileContent;
+            string[] fileContent = CheckUserExists(userId);
 
-            //check if userID is an integer. If not, fail the case
-            try
+            //Check if the user exists. If not (i.e. the array returned is empty), fail the check immediately.
+            if (fileContent.Length == 0)
             {
-                Convert.ToInt32(userId);
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("Please input numbers for the user ID.\n");
-                return false;
-            }
-
-            //try to retrieve a file with that userId. If not, fail the case.
-            try
-            {
-                fileContent = ReadFile(Convert.ToString(userId));
-            }
-            catch (FileNotFoundException)
-            {
-                Console.WriteLine("Incorrect credentials, please try again.\n");
                 return false;
             }
 
@@ -85,8 +70,37 @@ namespace HospitalManagement
             }
         }
 
+        //To check if a user exists. If there is, return the user's file contents. If not, retun an empty string[]
+        public static string[] CheckUserExists(string userId)
+        {
+            string[] fileContent = new string[0];
+
+            //check if userID is an integer. If not, fail the check
+            try
+            {
+                Convert.ToInt32(userId);
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Please input numbers for the user ID.\n");
+                return fileContent;
+            }
+
+            //try to retrieve a file with that userId. If the file doesn't exist, fail the check.
+            //If a file can be retrieved, then that user exists. Return true.
+            try
+            {
+                fileContent = ReadFile(Convert.ToString(userId));
+            }
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine("Invalid ID, please try again.\n");
+            }
+            return fileContent;
+        }
+
         //Password masking
-        public static string HidePassword()
+        public static string GetAndHidePassword()
         {
             string password = "";
             Console.Write("Password: ");
@@ -171,7 +185,7 @@ namespace HospitalManagement
             {
                 lines = File.ReadAllLines(filePath);
                 string[] fileContent = lines[0].Split(',');
-                Console.WriteLine("{0}      |{1}       | {2}       | {3} | {4}", fileContent[0], fileContent[2], fileContent[3], fileContent[4], fileContent[5]) ;
+                PrintDoctorDetails(fileContent);
             }
         }
 
@@ -195,7 +209,7 @@ namespace HospitalManagement
             {
                 lines = File.ReadAllLines(filePath);
                 string[] fileContent = lines[0].Split(',');
-                Console.WriteLine("{0}      |{1}       | {2}       | {3} | {4}", fileContent[0], fileContent[2], fileContent[3], fileContent[4], fileContent[5]);
+                PrintPatientDetails(fileContent);
             }
         }
 
@@ -203,6 +217,7 @@ namespace HospitalManagement
         public static void CheckDoctorDetails()
         {
             string userInput;
+            string[] fileContent;
 
             MenuHeader("Doctor Details");
             Console.WriteLine("Please enter the ID of the doctor who's details you are checking.");
@@ -211,11 +226,40 @@ namespace HospitalManagement
             Console.Write("ID: ");
             userInput = Console.ReadLine();
 
-            //continue until the user exits.
-            while (userInput != "exit" || userInput != "Exit")
+            //if the user did not exit
+            if (userInput != "exit" || userInput != "Exit")
             {
-                
+                //check if that the inputted userID exists
+                fileContent = CheckUserExists(userInput);
+
+                //if the user doesn't exist, repeat getting input until they do
+                while (fileContent.Length == 0)
+                {
+                    Console.Write("ID: ");
+                    userInput = Console.ReadLine();
+                    fileContent = CheckUserExists(userInput);
+                }
+
+                //when the user inputs a proper ID, print the doctor's file
+                Console.WriteLine("ID       | Name             | Email Address         | Phone      | Address                                   ");
+                Console.WriteLine("──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────");
+                PrintDoctorDetails(fileContent);
+
             }
+        }
+
+        //Print out a doctor's details. Accepts the user file, not the userID
+        public static void PrintDoctorDetails(string[] fileContent)
+        {
+            //Print out the ID, full name, email, phone, and address
+            Console.WriteLine("{0}      |{1}       | {2}       | {3} | {4}", fileContent[0], fileContent[2], fileContent[3], fileContent[4], fileContent[5]);
+        }
+
+        //Print out a doctor's details. Accepts the user file, not the userID
+        public static void PrintPatientDetails(string[] fileContent)
+        {
+            Console.WriteLine("{0}      |{1}       | {2}       | {3} | {4}", fileContent[0], fileContent[2], fileContent[3], fileContent[4], fileContent[5]);
         }
     }
 }
+
