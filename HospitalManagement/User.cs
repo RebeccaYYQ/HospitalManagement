@@ -161,6 +161,7 @@ namespace HospitalManagement
                     Console.ReadKey();
                     break;
                 case "4":
+                    Utils.CheckPatientDetails();
                     Console.ReadKey();
                     break;
                 case "5":
@@ -222,16 +223,29 @@ namespace HospitalManagement
             Console.Write("Selection: ");
             string userInput = Console.ReadLine();
 
+            string[] fileContent;
+
             switch (userInput)
             {
                 case "1":
                     Utils.MenuHeader("My Details");
-                    string[] fileContent = Utils.ReadFile(Convert.ToString(userId));
+                    fileContent = Utils.ReadFile(Convert.ToString(userId));
                     Utils.PrintPatientHeader();
                     Utils.PrintPatientDetails(fileContent);
                     Console.ReadKey();
                     break;
+                //if the user doesn't have a doctor, put an information box.
                 case "2":
+                    Utils.MenuHeader("My Doctor");
+                    if (doctor == "null")
+                    {
+                        Console.WriteLine("You do not have a doctor yet. Select one in the Book appointment menu.");
+                    } else
+                    {
+                        Utils.PrintDoctorHeader();
+                        fileContent = Utils.ReadFile(doctor);
+                        Utils.PrintDoctorDetails(fileContent);
+                    }
                     Console.ReadKey();
                     break;
                 case "3":
