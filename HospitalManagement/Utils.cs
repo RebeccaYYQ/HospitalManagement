@@ -168,10 +168,10 @@ namespace HospitalManagement
         //List all the doctors
         public static void ListAllDoctors()
         {
-            string[] lines;
+            string[] lines, files, fileContent;
 
             //all doctors have an ID starting with 2, so find files in the debug/net6.0 directory starting with 2.
-            string[] files = Directory.GetFiles(@".", "2*.txt");
+            files = Directory.GetFiles(@".", "2*.txt");
 
             //print the header
             Utils.MenuHeader("All Doctors");
@@ -183,31 +183,36 @@ namespace HospitalManagement
             foreach (string filePath in files)
             {
                 lines = File.ReadAllLines(filePath);
-                string[] fileContent = lines[0].Split(',');
+                fileContent = lines[0].Split(',');
                 PrintDoctorDetails(fileContent);
             }
         }
 
-        //List all the patients
-        public static void ListAllPatients()
+        //List patients, either all, or only specific ones based on doctorID
+        public static void ListPatients(string searchCriteria)
         {
-            string[] lines;
+            string[] lines, files, fileContent;
 
             //all patients have an ID starting with 3, so find files in the debug/net6.0 directory starting with 3.
-            string[] files = Directory.GetFiles(@".", "3*.txt");
+            files = Directory.GetFiles(@".", "3*.txt");
 
-            //print the header
-            Utils.MenuHeader("All Patients");
-            Console.WriteLine("All patients registered in the DOTNET Hospital System");
-            Console.WriteLine();
             PrintPatientHeader();
 
-            //print out the contents of that file
+            //print out the contents of patient files, based on searchCriteria. If it doesn't match the 2 If statements, don't print that patient
             foreach (string filePath in files)
             {
                 lines = File.ReadAllLines(filePath);
-                string[] fileContent = lines[0].Split(',');
-                PrintPatientDetails(fileContent);
+                fileContent = lines[0].Split(',');
+                if (searchCriteria == "all")
+                {
+                    PrintPatientDetails(fileContent);
+                }
+                //check if that patient has the same doctorID has the searchCriteria
+                else if (fileContent[3] == searchCriteria)
+                {
+                    PrintPatientDetails(fileContent);
+
+                }
             }
         }
 
@@ -325,6 +330,25 @@ namespace HospitalManagement
 
             Console.WriteLine("{0}      |{1}       |{2}       | {3}       | {4} | {5}", fileContent[0], fileContent[2], doctorName, fileContent[4], fileContent[5], fileContent[6]);
         }
+
+        ////List all the patients assigned to a doctor. 
+        //public static void ListDoctorsPatients(int doctorId)
+        //{
+        //    string[] files, lines, fileContent;
+
+        //    MenuHeader("My Patients");
+
+        //    //Get all the patient files
+        //    files = Directory.GetFiles(@".", "3*.txt");
+
+        //    //check if the doctor assigned to that patient has the same ID as the argument
+        //    foreach (string filePath in files)
+        //    {
+        //        lines = File.ReadAllLines(filePath);
+        //        fileContent = lines[0].Split(',');
+        //        PrintPatientDetails(fileContent);
+        //    }
+        //}
     }
 }
 

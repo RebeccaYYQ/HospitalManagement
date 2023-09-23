@@ -76,7 +76,10 @@ namespace HospitalManagement
                     Console.ReadKey();
                     break;
                 case "3":
-                    Utils.ListAllPatients();
+                    Utils.MenuHeader("All Patients");
+                    Console.WriteLine("All patients registered in the DOTNET Hospital System");
+                    Console.WriteLine();
+                    Utils.ListPatients("all");
                     Console.ReadKey();
                     break;
                 case "4":
@@ -155,6 +158,8 @@ namespace HospitalManagement
                     Console.ReadKey();
                     break;
                 case "2":
+                    Utils.MenuHeader("My Patients");
+                    Utils.ListPatients(Convert.ToString(userId));
                     Console.ReadKey();
                     break;
                 case "3":
