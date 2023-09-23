@@ -81,6 +81,16 @@ namespace HospitalManagement
                     Utils.ListAllPatients();
                     Console.ReadKey();
                     break;
+                case "4":
+                    Utils.CheckPatientDetails();
+                    Console.ReadKey();
+                    break;
+                case "5":
+                    Console.ReadKey();
+                    break;
+                case "6":
+                    Console.ReadKey();
+                    break;
                 case "7":
                     Console.WriteLine("Logging out...");
                     Console.ReadKey();
@@ -140,6 +150,21 @@ namespace HospitalManagement
 
             switch (userInput)
             {
+                case "1":
+                    Console.ReadKey();
+                    break;
+                case "2":
+                    Console.ReadKey();
+                    break;
+                case "3":
+                    Console.ReadKey();
+                    break;
+                case "4":
+                    Console.ReadKey();
+                    break;
+                case "5":
+                    Console.ReadKey();
+                    break;
                 case "6":
                     Console.WriteLine("Logging out...");
                     Console.ReadKey();
@@ -197,6 +222,18 @@ namespace HospitalManagement
 
             switch (userInput)
             {
+                case "1":
+                    Console.ReadKey();
+                    break;
+                case "2":
+                    Console.ReadKey();
+                    break;
+                case "3":
+                    Console.ReadKey();
+                    break;
+                case "4":
+                    Console.ReadKey();
+                    break;
                 case "5":
                     Console.WriteLine("Logging out...");
                     Console.ReadKey();

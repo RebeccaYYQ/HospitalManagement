@@ -11,9 +11,9 @@ namespace HospitalManagement
         //The main header seen on all screens
         public static void MenuHeader(string subHeader)
         {
-            //Console.Clear();
+            Console.Clear();
             Console.WriteLine("┌───────────────────────────────────────────┐");
-            Console.WriteLine("│     DOTNET Hospital Management System     │");    
+            Console.WriteLine("│     DOTNET Hospital Management System     │");
             Console.WriteLine("├───────────────────────────────────────────┤");
             Console.WriteLine("│                  {0}                      │", subHeader);
             Console.WriteLine("└───────────────────────────────────────────┘");
@@ -221,31 +221,76 @@ namespace HospitalManagement
 
             MenuHeader("Doctor Details");
             Console.WriteLine("Please enter the ID of the doctor who's details you are checking.");
-            Console.WriteLine("Enter 'Exit' to return to the menu.");
+            Console.WriteLine("Enter 'Exit' to return to the menu.\n");
 
-            Console.Write("ID: ");
-            userInput = Console.ReadLine();
-
-            //if the user did not exit
-            if (userInput != "exit" || userInput != "Exit")
+            //Repeat until the user exits, or the user enters a valid doctor's ID
+            do
             {
-                //check if that the inputted userID exists
-                fileContent = CheckUserExists(userInput);
+                Console.Write("ID: ");
+                userInput = Console.ReadLine();
 
-                //if the user doesn't exist, repeat getting input until they do
-                while (fileContent.Length == 0)
+                //if the user entered 'exit', end the method
+                if (userInput == "Exit" || userInput == "exit")
                 {
-                    Console.Write("ID: ");
-                    userInput = Console.ReadLine();
+                    return;
+                }
+                //if the inputted ID starts with a 2, the inputted ID may be a doctor. Check if they exist.
+                else if (userInput[0] == '2')
+                {
                     fileContent = CheckUserExists(userInput);
                 }
+                //else give an error
+                else
+                {
+                    Console.WriteLine("Invalid ID, please try again.\n");
+                    fileContent = new string[0];
+                }
+            } while (fileContent.Length == 0);
 
-                //when the user inputs a proper ID, print the doctor's file
-                Console.WriteLine("ID       | Name             | Email Address         | Phone      | Address                                   ");
-                Console.WriteLine("──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────");
-                PrintDoctorDetails(fileContent);
+            //when the user inputs a proper ID, print the doctor's file
+            Console.WriteLine("ID       | Name             | Email Address         | Phone      | Address                                   ");
+            Console.WriteLine("──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────");
+            PrintDoctorDetails(fileContent);
+        }
 
-            }
+        //method to check a specific doctor, using ID.
+        public static void CheckPatientDetails()
+        {
+            string userInput;
+            string[] fileContent;
+
+            MenuHeader("Patient Details");
+            Console.WriteLine("Please enter the ID of the patient who's details you are checking.");
+            Console.WriteLine("Enter 'Exit' to return to the menu.\n");
+
+            //Repeat until the user exits, or the user enters a valid patients's ID
+            do
+            {
+                Console.Write("ID: ");
+                userInput = Console.ReadLine();
+
+                //if the user entered 'exit', end the method
+                if (userInput == "Exit" || userInput == "exit")
+                {
+                    return;
+                }
+                //if the inputted ID starts with a 3, the inputted ID may be a patient. Check if they exist.
+                else if (userInput[0] == '3')
+                {
+                    fileContent = CheckUserExists(userInput);
+                }
+                //else give an error
+                else
+                {
+                    Console.WriteLine("Invalid ID, please try again.\n");
+                    fileContent = new string[0];
+                }
+            } while (fileContent.Length == 0);
+
+            //when the user inputs a proper ID, print the patient's file
+            Console.WriteLine("ID       | Name             | Email Address         | Phone      | Address                                   ");
+            Console.WriteLine("──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────");
+            PrintPatientDetails(fileContent);
         }
 
         //Print out a doctor's details. Accepts the user file, not the userID
