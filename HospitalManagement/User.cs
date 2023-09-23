@@ -87,6 +87,7 @@ namespace HospitalManagement
                     Console.ReadKey();
                     break;
                 case "5":
+                    Utils.AddDoctor();
                     Console.ReadKey();
                     break;
                 case "6":

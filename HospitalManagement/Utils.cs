@@ -331,24 +331,43 @@ namespace HospitalManagement
             Console.WriteLine("{0}      |{1}       |{2}       | {3}       | {4} | {5}", fileContent[0], fileContent[2], doctorName, fileContent[4], fileContent[5], fileContent[6]);
         }
 
-        ////List all the patients assigned to a doctor. 
-        //public static void ListDoctorsPatients(int doctorId)
-        //{
-        //    string[] files, lines, fileContent;
+        //Add a doctor. Create a file at the end
+        public static void AddDoctor()
+        {
+            string userData;
+            //Starts with 30000, because doctor IDs start with 2
+            int userId = 200001;
 
-        //    MenuHeader("My Patients");
+            //loop through userIds until it finds a file (and hence ID) that doesn't exist
+            while (File.Exists(string.Format("{0}.txt", userId))) {
+                userId++;
+            }
 
-        //    //Get all the patient files
-        //    files = Directory.GetFiles(@".", "3*.txt");
+            //get all the data to create a user
+            MenuHeader("Add Doctor");
+            Console.WriteLine("Register a new doctor.\n");
+            Console.Write("Full name: ");
+            userData = Console.ReadLine();
+            Console.Write("Email: ");
+            userData = userData + "," + Console.ReadLine();
+            Console.Write("Phone number: ");
+            userData = userData + "," + Console.ReadLine();
+            Console.Write("Address: ");
+            userData = userData + "," + Console.ReadLine();
+            Console.Write("Password: ");
+            userData = Console.ReadLine() + ',' + userData;
 
-        //    //check if the doctor assigned to that patient has the same ID as the argument
-        //    foreach (string filePath in files)
-        //    {
-        //        lines = File.ReadAllLines(filePath);
-        //        fileContent = lines[0].Split(',');
-        //        PrintPatientDetails(fileContent);
-        //    }
-        //}
+            //Add ID to the start of the string
+            userData = Convert.ToString(userId) + ',' + userData;
+            Console.WriteLine(userData);
+
+            //Create the file
+            string filePath = userId + ".txt";
+            File.WriteAllText(filePath, userData);
+
+            Console.WriteLine();
+            Console.WriteLine("Doctor created.");
+        }
     }
 }
 
