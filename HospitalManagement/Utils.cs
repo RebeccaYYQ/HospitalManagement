@@ -177,8 +177,7 @@ namespace HospitalManagement
             Utils.MenuHeader("All Doctors");
             Console.WriteLine("All doctors registered in the DOTNET Hospital System");
             Console.WriteLine();
-            Console.WriteLine("ID       | Name             | Email Address         | Phone      | Address                                   ");
-            Console.WriteLine("──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────");
+            PrintDoctorHeader();
 
             //print out the contents of that file
             foreach (string filePath in files)
@@ -201,8 +200,7 @@ namespace HospitalManagement
             Utils.MenuHeader("All Patients");
             Console.WriteLine("All patients registered in the DOTNET Hospital System");
             Console.WriteLine();
-            Console.WriteLine("ID       | Name             | Doctor             | Email Address         | Phone      | Address                                   ");
-            Console.WriteLine("──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────");
+            PrintPatientHeader();
 
             //print out the contents of that file
             foreach (string filePath in files)
@@ -248,8 +246,7 @@ namespace HospitalManagement
             } while (fileContent.Length == 0);
 
             //when the user inputs a proper ID, print the doctor's file
-            Console.WriteLine("ID       | Name             | Email Address         | Phone      | Address                                   ");
-            Console.WriteLine("──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────");
+            PrintDoctorHeader();
             PrintDoctorDetails(fileContent);
         }
 
@@ -288,9 +285,15 @@ namespace HospitalManagement
             } while (fileContent.Length == 0);
 
             //when the user inputs a proper ID, print the patient's file
-            Console.WriteLine("ID       | Name             | Doctor             | Email Address         | Phone      | Address                                   ");
-            Console.WriteLine("──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────");
+            PrintPatientHeader();
             PrintPatientDetails(fileContent);
+        }
+
+        //The header for all doctor information screens
+        public static void PrintDoctorHeader()
+        {
+            Console.WriteLine("ID       | Name             | Email Address         | Phone      | Address                                   ");
+            Console.WriteLine("──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────");
         }
 
         //Print out a doctor's details. Accepts the user file, not the userID
@@ -300,7 +303,14 @@ namespace HospitalManagement
             Console.WriteLine("{0}      |{1}       | {2}       | {3} | {4}", fileContent[0], fileContent[2], fileContent[3], fileContent[4], fileContent[5]);
         }
 
-        //Print out a doctor's details. Accepts the user file, not the userID
+        //The header for all patient information screens
+        public static void PrintPatientHeader()
+        {
+            Console.WriteLine("ID       | Name             | Doctor             | Email Address         | Phone      | Address                                   ");
+            Console.WriteLine("──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────");
+        }
+
+        //Print out a patient's details. Accepts the user file, not the userID
         public static void PrintPatientDetails(string[] fileContent)
         {
             Console.WriteLine("{0}      |{1}       |{2}       | {3}       | {4} | {5}", fileContent[0], fileContent[2], fileContent[3], fileContent[4], fileContent[5], fileContent[6]);

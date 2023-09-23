@@ -148,6 +148,10 @@ namespace HospitalManagement
             switch (userInput)
             {
                 case "1":
+                    Utils.MenuHeader("My Details");
+                    string[] fileContent = Utils.ReadFile(Convert.ToString(userId));
+                    Utils.PrintDoctorHeader();
+                    Utils.PrintDoctorDetails(fileContent);
                     Console.ReadKey();
                     break;
                 case "2":
@@ -221,6 +225,10 @@ namespace HospitalManagement
             switch (userInput)
             {
                 case "1":
+                    Utils.MenuHeader("My Details");
+                    string[] fileContent = Utils.ReadFile(Convert.ToString(userId));
+                    Utils.PrintPatientHeader();
+                    Utils.PrintPatientDetails(fileContent);
                     Console.ReadKey();
                     break;
                 case "2":
