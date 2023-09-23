@@ -138,17 +138,17 @@ namespace HospitalManagement
             //if the userId starts with a 1, create an admin
             if (userId < 200000)
             {
-                Admin currentUser = new Admin(Convert.ToInt32(fileContent[0]), fileContent[1], fileContent[2], fileContent[3], fileContent[4], fileContent[5]);
+                Admin currentUser = new Admin(Convert.ToInt32(fileContent[0]), fileContent[2], fileContent[3], fileContent[4], fileContent[5]);
                 currentUser.UserMenu();
             }
             //else if userId starts with a 2, create a doctor 
             else if (userId < 300000) {
-                Doctor currentUser = new Doctor(Convert.ToInt32(fileContent[0]), fileContent[1], fileContent[2], fileContent[3], fileContent[4], fileContent[5]);
+                Doctor currentUser = new Doctor(Convert.ToInt32(fileContent[0]), fileContent[2], fileContent[3], fileContent[4], fileContent[5]);
                 currentUser.UserMenu();
             }
             //else if their id starts with a 3, create a patient
             else if (userId < 400000) {
-                Patient currentUser = new Patient(Convert.ToInt32(fileContent[0]), fileContent[1], fileContent[2], fileContent[3], fileContent[4], fileContent[5]);
+                Patient currentUser = new Patient(Convert.ToInt32(fileContent[0]), fileContent[2], fileContent[3], fileContent[4], fileContent[5], fileContent[6]);
                 currentUser.UserMenu();
             }
         }
@@ -201,7 +201,7 @@ namespace HospitalManagement
             Utils.MenuHeader("All Patients");
             Console.WriteLine("All patients registered in the DOTNET Hospital System");
             Console.WriteLine();
-            Console.WriteLine("ID       | Name             | Email Address         | Phone      | Address                                   ");
+            Console.WriteLine("ID       | Name             | Doctor             | Email Address         | Phone      | Address                                   ");
             Console.WriteLine("──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────");
 
             //print out the contents of that file
@@ -288,7 +288,7 @@ namespace HospitalManagement
             } while (fileContent.Length == 0);
 
             //when the user inputs a proper ID, print the patient's file
-            Console.WriteLine("ID       | Name             | Email Address         | Phone      | Address                                   ");
+            Console.WriteLine("ID       | Name             | Doctor             | Email Address         | Phone      | Address                                   ");
             Console.WriteLine("──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────");
             PrintPatientDetails(fileContent);
         }
@@ -303,7 +303,7 @@ namespace HospitalManagement
         //Print out a doctor's details. Accepts the user file, not the userID
         public static void PrintPatientDetails(string[] fileContent)
         {
-            Console.WriteLine("{0}      |{1}       | {2}       | {3} | {4}", fileContent[0], fileContent[2], fileContent[3], fileContent[4], fileContent[5]);
+            Console.WriteLine("{0}      |{1}       |{2}       | {3}       | {4} | {5}", fileContent[0], fileContent[2], fileContent[3], fileContent[4], fileContent[5], fileContent[6]);
         }
     }
 }

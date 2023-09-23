@@ -5,12 +5,11 @@ namespace HospitalManagement
     public abstract class User
     {
         public int userId;
-        public string password, fullName, email, phoneNo, address;
+        public string fullName, email, phoneNo, address;
 
-        public User(int userId, string password, string fullName, string email, string phoneNo, string address)
+        public User(int userId, string fullName, string email, string phoneNo, string address)
         {
             this.userId = userId;
-            this.password = password;
             this.fullName = fullName;
             this.email = email;
             this.phoneNo = phoneNo;
@@ -29,10 +28,9 @@ namespace HospitalManagement
     class Admin : User, IMenu
     {
         //Constructor
-        public Admin(int userId, string password, string fullName, string email, string phoneNo, string address) : base(userId, password, fullName, email, phoneNo, address)
+        public Admin(int userId, string fullName, string email, string phoneNo, string address) : base(userId, fullName, email, phoneNo, address)
         {
             this.userId = userId;
-            this.password = password;
             this.fullName = fullName;
             this.email = email;
             this.phoneNo = phoneNo;
@@ -111,10 +109,9 @@ namespace HospitalManagement
     class Doctor : User, IMenu
     {
         //Constructor
-        public Doctor(int userId, string password, string fullName, string email, string phoneNo, string address) : base(userId, password, fullName, email, phoneNo, address)
+        public Doctor(int userId, string fullName, string email, string phoneNo, string address) : base(userId, fullName, email, phoneNo, address)
         {
             this.userId = userId;
-            this.password = password;
             this.fullName = fullName;
             this.email = email;
             this.phoneNo = phoneNo;
@@ -183,16 +180,17 @@ namespace HospitalManagement
 
     class Patient : User, IMenu
     {
+        string doctor;
+
         //Constructor
-        public Patient(int userId, string password, string fullName, string email, string phoneNo, string address) : base(userId, password, fullName, email, phoneNo, address)
+        public Patient(int userId, string fullName, string doctor, string email, string phoneNo, string address) : base(userId, fullName, email, phoneNo, address)
         {
             this.userId = userId;
-            this.password = password;
             this.fullName = fullName;
+            this.doctor = doctor;
             this.email = email;
             this.phoneNo = phoneNo;
             this.address = address;
-            string doctor;
         }
         //the main user menu. Repeat this until the user logs out or exits the system
         public void UserMenu()
