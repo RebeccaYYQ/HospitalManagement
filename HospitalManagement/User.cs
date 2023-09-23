@@ -87,10 +87,11 @@ namespace HospitalManagement
                     Console.ReadKey();
                     break;
                 case "5":
-                    Utils.AddDoctor();
+                    Utils.AddUser("doctor");
                     Console.ReadKey();
                     break;
                 case "6":
+                    Utils.AddUser("patient");
                     Console.ReadKey();
                     break;
                 case "7":

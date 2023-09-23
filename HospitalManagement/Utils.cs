@@ -331,23 +331,44 @@ namespace HospitalManagement
             Console.WriteLine("{0}      |{1}       |{2}       | {3}       | {4} | {5}", fileContent[0], fileContent[2], doctorName, fileContent[4], fileContent[5], fileContent[6]);
         }
 
-        //Add a doctor. Create a file at the end
-        public static void AddDoctor()
+        //Add a user. Create a file at the end
+        public static void AddUser(string userType)
         {
             string userData;
-            //Starts with 30000, because doctor IDs start with 2
-            int userId = 200001;
+            int userId;
 
-            //loop through userIds until it finds a file (and hence ID) that doesn't exist
+            //Doctor Ids start with a 2, and patient Ids start with a 3. Set the benchmark here.
+            if (userType == "doctor")
+            {
+                userId = 200001;
+            }
+            //else default to patient
+            else
+            {
+                userId = 300001;
+            }
+            
+
+            //loop through userIds until it finds a file (and hence ID) that doesn't exist. 
             while (File.Exists(string.Format("{0}.txt", userId))) {
                 userId++;
             }
 
             //get all the data to create a user
-            MenuHeader("Add Doctor");
-            Console.WriteLine("Register a new doctor.\n");
+            string userTypeCapitalised = char.ToUpper(userType[0]) + userType[1..];
+            MenuHeader("Add " + userTypeCapitalised);
+            Console.WriteLine("Register a new {0}.\n", userType);
+
+            Console.WriteLine("The ID of the created user will be {0}\n", userId);
+
             Console.Write("Full name: ");
             userData = Console.ReadLine();
+
+            //if they are a patient, add a null for the doctor field
+            if (userType == "patient") {
+                userData += ",null";
+            }
+
             Console.Write("Email: ");
             userData = userData + "," + Console.ReadLine();
             Console.Write("Phone number: ");
@@ -359,14 +380,13 @@ namespace HospitalManagement
 
             //Add ID to the start of the string
             userData = Convert.ToString(userId) + ',' + userData;
-            Console.WriteLine(userData);
 
             //Create the file
             string filePath = userId + ".txt";
             File.WriteAllText(filePath, userData);
 
             Console.WriteLine();
-            Console.WriteLine("Doctor created.");
+            Console.WriteLine("{0} created.", userTypeCapitalised);
         }
     }
 }
