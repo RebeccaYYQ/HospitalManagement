@@ -313,7 +313,17 @@ namespace HospitalManagement
         //Print out a patient's details. Accepts the user file, not the userID
         public static void PrintPatientDetails(string[] fileContent)
         {
-            Console.WriteLine("{0}      |{1}       |{2}       | {3}       | {4} | {5}", fileContent[0], fileContent[2], fileContent[3], fileContent[4], fileContent[5], fileContent[6]);
+            string doctorName = "null";
+            string[] doctorFile;
+
+            //In the file the doctor is stored as an ID. Get the doctor's name to print
+            if (fileContent[3] != "null")
+            {
+                doctorFile = ReadFile(fileContent[3]);
+                doctorName = doctorFile[2];
+            }
+
+            Console.WriteLine("{0}      |{1}       |{2}       | {3}       | {4} | {5}", fileContent[0], fileContent[2], doctorName, fileContent[4], fileContent[5], fileContent[6]);
         }
     }
 }

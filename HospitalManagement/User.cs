@@ -234,6 +234,7 @@ namespace HospitalManagement
                     Utils.PrintPatientDetails(fileContent);
                     Console.ReadKey();
                     break;
+                
                 //if the user doesn't have a doctor, put an information box.
                 case "2":
                     Utils.MenuHeader("My Doctor");
@@ -248,6 +249,7 @@ namespace HospitalManagement
                     }
                     Console.ReadKey();
                     break;
+
                 case "3":
                     Console.ReadKey();
                     break;
