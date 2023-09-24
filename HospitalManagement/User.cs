@@ -168,6 +168,8 @@ namespace HospitalManagement
                     Console.ReadKey();
                     break;
                 case "3":
+                    Utils.MenuHeader("All Appointments");
+                    Utils.ListAppointments(Convert.ToString(userId), "");
                     Console.ReadKey();
                     break;
                 case "4":
@@ -175,6 +177,22 @@ namespace HospitalManagement
                     Console.ReadKey();
                     break;
                 case "5":
+                    Utils.MenuHeader("Appointments With");
+                    Console.WriteLine("Enter the ID of the patient you would like to view appointments for.\n");
+
+                    //Repeat until the user chooses a valid patient ID
+                    do
+                    {
+                        Console.Write("ID: ");
+                        userInput = Console.ReadLine();
+
+                        fileContent = Utils.CheckUserExists(userInput, "patient");
+
+                    } while (fileContent.Length == 0);
+
+                    Console.WriteLine();
+                    Utils.ListAppointments(Convert.ToString(userId), userInput);
+
                     Console.ReadKey();
                     break;
                 case "6":
@@ -206,20 +224,9 @@ namespace HospitalManagement
             this.email = email;
             this.phoneNo = phoneNo;
             this.address = address;
-            doctorName = GetDoctorName(doctorId);
-        }
 
-        //gets the doctor's name
-        private string GetDoctorName(string doctorId)
-        {
-            if (doctorId == "null")
-            {
-                return "null";
-            } else
-            {
-                string[] doctorFile = Utils.ReadFile(doctorId);
-                return doctorFile[2];
-            }
+            //set doctor name. if doctorId equals null, set the name as null.
+            doctorName = doctorId != "null" ? Utils.GetName(doctorId) : "null";
         }
 
         //the main user menu. Repeat this until the user logs out or exits the system
@@ -276,6 +283,8 @@ namespace HospitalManagement
                     break;
 
                 case "3":
+                    Utils.MenuHeader("My Appointments");
+                    Utils.ListAppointments("", Convert.ToString(userId));
                     Console.ReadKey();
                     break;
 
@@ -301,7 +310,7 @@ namespace HospitalManagement
 
                         //with a valid doctor Id, update the user's file
                         doctorId = userInput;
-                        doctorName = GetDoctorName(doctorId);
+                        doctorName = Utils.GetName(doctorId);
 
                         //read the file contents of the current ID
                         string[] userFileContent = Utils.ReadFile(Convert.ToString(userId));

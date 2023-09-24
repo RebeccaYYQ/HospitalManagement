@@ -212,6 +212,7 @@ namespace HospitalManagement
             {
                 lines = File.ReadAllLines(filePath);
                 fileContent = lines[0].Split(',');
+                //If the user wants all patients (admin)
                 if (searchCriteria == "all")
                 {
                     PrintPatientDetails(fileContent);
@@ -221,6 +222,37 @@ namespace HospitalManagement
                 {
                     PrintPatientDetails(fileContent);
 
+                }
+            }
+        }
+
+        //Prints out appointments based on a criteria.It filters based on doctorId, patientId, or both if both arguments have values
+        public static void ListAppointments(string doctorId, string patientId)
+        {
+            PrintAppointmentHeader();
+
+            string[] allAppts = File.ReadAllLines("AllAppointments.txt");
+            string[] apptArray;
+
+            //for every item in the file, except the last line (because the last line is empty)
+            for (int i = 0; i < allAppts.Length; i++)
+            {
+                apptArray = allAppts[i].Split(",");
+
+                //if there is a doctorId argument and no patient arg, filter all appointments based on doctor
+                if (apptArray[0] == doctorId && patientId == "")
+                {
+                    PrintAppointmentDetails(apptArray);
+                }
+                //else if both args have a value, and match the row
+                else if (apptArray[0] == doctorId && apptArray[1] == patientId)
+                {
+                    PrintAppointmentDetails(apptArray);
+                }
+                //if there is a patientId argument, filter appts based on it
+                else if (apptArray[1] == patientId && doctorId == "")
+                {
+                    PrintAppointmentDetails(apptArray);
                 }
             }
         }
@@ -300,7 +332,7 @@ namespace HospitalManagement
         public static void PrintDoctorDetails(string[] fileContent)
         {
             //Print out the ID, full name, email, phone, and address
-            Console.WriteLine("{0}      |{1}       | {2}       | {3} | {4}", fileContent[0], fileContent[2], fileContent[3], fileContent[4], fileContent[5]);
+            Console.WriteLine("{0}      | {1}       | {2}       | {3} | {4}", fileContent[0], fileContent[2], fileContent[3], fileContent[4], fileContent[5]);
         }
 
         //The header for all patient information screens
@@ -319,17 +351,26 @@ namespace HospitalManagement
             //In the file the doctor is stored as an ID. Get the doctor's name to print
             if (fileContent[3] != "null")
             {
-                doctorFile = ReadFile(fileContent[3]);
-                doctorName = doctorFile[2];
+                doctorName = GetName(fileContent[3]);
             }
-
-            Console.WriteLine("{0}      |{1}       |{2}       | {3}       | {4} | {5}", fileContent[0], fileContent[2], doctorName, fileContent[4], fileContent[5], fileContent[6]);
+            //print out the ID, full name, doctor name, email, phone, and address
+            Console.WriteLine("{0}      | {1}       | {2}       | {3}       | {4} | {5}", fileContent[0], fileContent[2], doctorName, fileContent[4], fileContent[5], fileContent[6]);
         }
 
+        //The header for all appointment screens
         public static void PrintAppointmentHeader()
         {
             Console.WriteLine("Doctor       | Patient             | Description");
             Console.WriteLine("──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────");
+        }
+
+        //Prints out the appointment details. Accepts a stringArray
+        public static void PrintAppointmentDetails(string[] fileContent)
+        {
+            string doctorName = GetName(fileContent[0]);
+            string patientName = GetName(fileContent[1]);
+            //Print out the doctor's name, patient name and appointment details
+            Console.WriteLine("{0}       | {1}       | {2}       ", doctorName, patientName, fileContent[2]);
         }
 
         //Add a user. Create a file at the end
@@ -394,7 +435,14 @@ namespace HospitalManagement
         public static void AddAppointment(string doctorId, int userId, string apptDescription)
         {
             string filePath = "AllAppointments.txt";
-            File.AppendAllText(filePath, Convert.ToString(doctorId + ","+userId+","+apptDescription));
+            File.AppendAllText(filePath, Convert.ToString(doctorId + ","+userId+","+apptDescription+"\n"));
+        }
+
+        //Returns the name of the user by reading the file and retieving their name
+        public static string GetName(string userId)
+        {
+            string[] userFile = ReadFile(userId);
+            return userFile[2];
         }
     }
 }
