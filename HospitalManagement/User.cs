@@ -195,7 +195,7 @@ namespace HospitalManagement
 
     class Patient : User, IMenu
     {
-        string doctorId;
+        string doctorId, doctorName;
 
         //Constructor
         public Patient(int userId, string fullName, string doctorId, string email, string phoneNo, string address) : base(userId, fullName, email, phoneNo, address)
@@ -206,7 +206,22 @@ namespace HospitalManagement
             this.email = email;
             this.phoneNo = phoneNo;
             this.address = address;
+            doctorName = GetDoctorName(doctorId);
         }
+
+        //gets the doctor's name
+        private string GetDoctorName(string doctorId)
+        {
+            if (doctorId == "null")
+            {
+                return "null";
+            } else
+            {
+                string[] doctorFile = Utils.ReadFile(doctorId);
+                return doctorFile[2];
+            }
+        }
+
         //the main user menu. Repeat this until the user logs out or exits the system
         public void UserMenu()
         {
@@ -266,11 +281,10 @@ namespace HospitalManagement
 
                 //Book appointments. If the user doesn't have a doctor, prompt them to add one
                 case "4":
-                    Utils.MenuHeader("Book Appointment");
-
                     //If the user doesn't have a doctor, make them choose one now
                     if (doctorId == "null")
                     {
+                        Utils.MenuHeader("Book Appointment");
                         Console.WriteLine("You are not currently registered to any doctor. Please input the ID of the doctor you would like to register with.\n");
                         Utils.ListAllDoctors();
                         Console.WriteLine();
@@ -287,19 +301,27 @@ namespace HospitalManagement
 
                         //with a valid doctor Id, update the user's file
                         doctorId = userInput;
+                        doctorName = GetDoctorName(doctorId);
 
                         //read the file contents of the current ID
                         string[] userFileContent = Utils.ReadFile(Convert.ToString(userId));
 
-                        //replace the doctor field with the doctor's ID, and overwrite everything in the current user's file
+                        //replace the doctor field with the doctor's ID, and save to the current user's file
                         userFileContent[3] = doctorId;
                         string filePath = userId + ".txt";
-                        Console.WriteLine(string.Join(",", userFileContent));
                         File.WriteAllText(filePath, string.Join(",", userFileContent));
 
-                        Console.WriteLine("\nYou are now registered to doctor {0}.", userInput);
+                        Console.WriteLine("\nYou are now registered to Dr {0}.", doctorName);
                         Console.ReadKey();
                     }
+
+                    //Book an appointment if the user has a doctor
+                    Utils.MenuHeader("Book Appointment");
+                    Console.WriteLine("You are booking an appointment with Dr {0}.\n", doctorName);
+                    Console.Write("Description of the appointment: ");
+                    string apptDescription = Console.ReadLine();
+                    Utils.AddAppointment(doctorId, userId, apptDescription);
+                    Console.WriteLine("\nThe appointment has been booked successfully");
                     Console.ReadKey();
                     break;
 

@@ -326,6 +326,12 @@ namespace HospitalManagement
             Console.WriteLine("{0}      |{1}       |{2}       | {3}       | {4} | {5}", fileContent[0], fileContent[2], doctorName, fileContent[4], fileContent[5], fileContent[6]);
         }
 
+        public static void PrintAppointmentHeader()
+        {
+            Console.WriteLine("Doctor       | Patient             | Description");
+            Console.WriteLine("──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────");
+        }
+
         //Add a user. Create a file at the end
         public static void AddUser(string userType)
         {
@@ -382,6 +388,13 @@ namespace HospitalManagement
 
             Console.WriteLine();
             Console.WriteLine("{0} created.", userTypeCapitalised);
+        }
+
+        //Update the appointment file with a new appointment
+        public static void AddAppointment(string doctorId, int userId, string apptDescription)
+        {
+            string filePath = "AllAppointments.txt";
+            File.AppendAllText(filePath, Convert.ToString(doctorId + ","+userId+","+apptDescription));
         }
     }
 }
