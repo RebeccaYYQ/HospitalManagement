@@ -68,6 +68,9 @@ namespace HospitalManagement
             switch (userInput)
             {
                 case "1":
+                    Utils.MenuHeader("All Doctors");
+                    Console.WriteLine("All doctors registered in the DOTNET Hospital System");
+                    Console.WriteLine();
                     Utils.ListAllDoctors();
                     Console.ReadKey();
                     break;
@@ -260,9 +263,21 @@ namespace HospitalManagement
                 case "3":
                     Console.ReadKey();
                     break;
+
+                //Book appointments. If the user doesn't have a doctor, prompt them to add one
                 case "4":
+                    Utils.MenuHeader("Book Appointment");
+
+                    if (doctor == "null")
+                    {
+                        Console.WriteLine("You are not currently registered to any doctor. Please input the ID of the doctor you would like to register with.\n");
+                        Utils.ListAllDoctors();
+                        Console.WriteLine();
+                        //UNFINISHED
+                    }
                     Console.ReadKey();
                     break;
+
                 case "5":
                     Console.WriteLine("Logging out...");
                     Console.ReadKey();

@@ -173,10 +173,6 @@ namespace HospitalManagement
             //all doctors have an ID starting with 2, so find files in the debug/net6.0 directory starting with 2.
             files = Directory.GetFiles(@".", "2*.txt");
 
-            //print the header
-            Utils.MenuHeader("All Doctors");
-            Console.WriteLine("All doctors registered in the DOTNET Hospital System");
-            Console.WriteLine();
             PrintDoctorHeader();
 
             //print out the contents of that file
