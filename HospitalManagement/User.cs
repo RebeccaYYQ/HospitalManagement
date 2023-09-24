@@ -195,14 +195,14 @@ namespace HospitalManagement
 
     class Patient : User, IMenu
     {
-        string doctor;
+        string doctorId;
 
         //Constructor
-        public Patient(int userId, string fullName, string doctor, string email, string phoneNo, string address) : base(userId, fullName, email, phoneNo, address)
+        public Patient(int userId, string fullName, string doctorId, string email, string phoneNo, string address) : base(userId, fullName, email, phoneNo, address)
         {
             this.userId = userId;
             this.fullName = fullName;
-            this.doctor = doctor;
+            this.doctorId = doctorId;
             this.email = email;
             this.phoneNo = phoneNo;
             this.address = address;
@@ -248,13 +248,13 @@ namespace HospitalManagement
                 //if the user doesn't have a doctor, put an information box.
                 case "2":
                     Utils.MenuHeader("My Doctor");
-                    if (doctor == "null")
+                    if (doctorId == "null")
                     {
                         Console.WriteLine("You do not have a doctor yet. Select one in the Book appointment menu.");
                     } else
                     {
                         Utils.PrintDoctorHeader();
-                        fileContent = Utils.ReadFile(doctor);
+                        fileContent = Utils.ReadFile(doctorId);
                         Utils.PrintDoctorDetails(fileContent);
                     }
                     Console.ReadKey();
@@ -268,12 +268,37 @@ namespace HospitalManagement
                 case "4":
                     Utils.MenuHeader("Book Appointment");
 
-                    if (doctor == "null")
+                    //If the user doesn't have a doctor, make them choose one now
+                    if (doctorId == "null")
                     {
                         Console.WriteLine("You are not currently registered to any doctor. Please input the ID of the doctor you would like to register with.\n");
                         Utils.ListAllDoctors();
                         Console.WriteLine();
-                        //UNFINISHED
+
+                        //Repeat until the user chooses a valid doctor ID
+                        do
+                        {
+                            Console.Write("ID: ");
+                            userInput = Console.ReadLine();
+
+                            fileContent = Utils.CheckUserExists(userInput, "doctor");
+
+                        } while (fileContent.Length == 0);
+
+                        //with a valid doctor Id, update the user's file
+                        doctorId = userInput;
+
+                        //read the file contents of the current ID
+                        string[] userFileContent = Utils.ReadFile(Convert.ToString(userId));
+
+                        //replace the doctor field with the doctor's ID, and overwrite everything in the current user's file
+                        userFileContent[3] = doctorId;
+                        string filePath = userId + ".txt";
+                        Console.WriteLine(string.Join(",", userFileContent));
+                        File.WriteAllText(filePath, string.Join(",", userFileContent));
+
+                        Console.WriteLine("\nYou are now registered to doctor {0}.", userInput);
+                        Console.ReadKey();
                     }
                     Console.ReadKey();
                     break;
