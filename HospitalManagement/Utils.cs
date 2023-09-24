@@ -51,7 +51,7 @@ namespace HospitalManagement
         //returns true when there is a valid credential.
         static Boolean CheckLogin(string userId, string password)
         {
-            string[] fileContent = CheckUserExists(userId);
+            string[] fileContent = CheckUserExists(userId, "any");
 
             //Check if the user exists. If not (i.e. the array returned is empty), fail the check immediately.
             if (fileContent.Length == 0)
@@ -70,8 +70,9 @@ namespace HospitalManagement
             }
         }
 
-        //To check if a user exists. If there is, return the user's file contents. If not, retun an empty string[]
-        public static string[] CheckUserExists(string userId)
+        //To check if a user exists, and matches a wanted type. If there is, return the user's file contents. If not, retun an empty string[]
+        //userType is to check for a specific user type, eg doctor or patient or any
+        public static string[] CheckUserExists(string userId, string userType)
         {
             string[] fileContent = new string[0];
 
@@ -83,6 +84,18 @@ namespace HospitalManagement
             catch (FormatException)
             {
                 Console.WriteLine("Please input numbers for the user ID.\n");
+                return fileContent;
+            }
+
+            //based on userType, check if that ID starts with a 2 (doctor) or 3 (patient). If not, exit without reading the file
+            if (userType == "doctor" && userId[0] != '2')
+            {
+                Console.WriteLine("Invalid ID, please try again.\n");
+                return fileContent;
+            }
+            if (userType == "patient" && userId[0] != '3')
+            {
+                Console.WriteLine("Invalid ID, please try again.\n");
                 return fileContent;
             }
 
@@ -231,19 +244,12 @@ namespace HospitalManagement
                 //if the user entered 'exit', end the method
                 if (userInput == "Exit" || userInput == "exit")
                 {
+                    Console.WriteLine("Returning to menu...");
                     return;
                 }
-                //if the inputted ID starts with a 2, the inputted ID may be a doctor. Check if they exist.
-                else if (userInput[0] == '2')
-                {
-                    fileContent = CheckUserExists(userInput);
-                }
-                //else give an error
-                else
-                {
-                    Console.WriteLine("Invalid ID, please try again.\n");
-                    fileContent = new string[0];
-                }
+
+                fileContent = CheckUserExists(userInput, "doctor");
+
             } while (fileContent.Length == 0);
 
             //when the user inputs a proper ID, print the doctor's file
@@ -270,19 +276,12 @@ namespace HospitalManagement
                 //if the user entered 'exit', end the method
                 if (userInput == "Exit" || userInput == "exit")
                 {
+                    Console.WriteLine("Returning to menu...");
                     return;
                 }
-                //if the inputted ID starts with a 3, the inputted ID may be a patient. Check if they exist.
-                else if (userInput[0] == '3')
-                {
-                    fileContent = CheckUserExists(userInput);
-                }
-                //else give an error
-                else
-                {
-                    Console.WriteLine("Invalid ID, please try again.\n");
-                    fileContent = new string[0];
-                }
+
+                fileContent = CheckUserExists(userInput, "patient");
+
             } while (fileContent.Length == 0);
 
             //when the user inputs a proper ID, print the patient's file
