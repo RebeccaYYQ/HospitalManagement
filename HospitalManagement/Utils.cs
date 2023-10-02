@@ -3,20 +3,29 @@ using System.Net.NetworkInformation;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Xml.Linq;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace HospitalManagement
 {
     internal class Utils
     {
         //The main header seen on all screens
-        public static void MenuHeader(string subHeader)
+        public static void MenuHeader(string subheaderText)
         {
+            //calculate spacing so that the subheader is centered
+            int headerWidth = 44;
+            int leftPadding = (headerWidth - subheaderText.Length) / 2;
+            int remainder = headerWidth - leftPadding;
+
+            string formatting = "{0," + leftPadding + "}{1,-" + remainder + "}";
+            string subheading = string.Format(formatting, "", subheaderText);
+
             Console.Clear();
-            Console.WriteLine("┌───────────────────────────────────────────┐");
-            Console.WriteLine("│     DOTNET Hospital Management System     │");
-            Console.WriteLine("├───────────────────────────────────────────┤");
-            Console.WriteLine("│                  {0}                      │", subHeader);
-            Console.WriteLine("└───────────────────────────────────────────┘");
+            Console.WriteLine("┌────────────────────────────────────────────┐");
+            Console.WriteLine("│     DOTNET Hospital Management System      │");
+            Console.WriteLine("├────────────────────────────────────────────┤");
+            Console.WriteLine("|" + subheading + "|");
+            Console.WriteLine("└────────────────────────────────────────────┘");
             Console.WriteLine();
         }
 
@@ -324,7 +333,7 @@ namespace HospitalManagement
         //The header for all doctor information screens
         public static void PrintDoctorHeader()
         {
-            Console.WriteLine("ID       | Name             | Email Address         | Phone      | Address                                   ");
+            Console.WriteLine(String.Format("{0,-6} | {1,-20} | {2, -25} | {3,-20} | {4, -30}", "ID", "Name", "Email Address", "Phone", "Address"));
             Console.WriteLine("──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────");
         }
 
@@ -332,13 +341,13 @@ namespace HospitalManagement
         public static void PrintDoctorDetails(string[] fileContent)
         {
             //Print out the ID, full name, email, phone, and address
-            Console.WriteLine("{0}      | {1}       | {2}       | {3} | {4}", fileContent[0], fileContent[2], fileContent[3], fileContent[4], fileContent[5]);
+            Console.WriteLine(String.Format("{0,-6} | {1,-20} | {2, -25} | {3,-20} | {4, -30}", fileContent[0], fileContent[2], fileContent[3], fileContent[4], fileContent[5]));
         }
 
         //The header for all patient information screens
         public static void PrintPatientHeader()
         {
-            Console.WriteLine("ID       | Name             | Doctor             | Email Address         | Phone      | Address                                   ");
+            Console.WriteLine(String.Format("{0,-6} | {1,-20} | {2,-20} | {3, -25} | {4,-20} | {5, -30}", "ID", "Doctor", "Name", "Email Address", "Phone", "Address"));
             Console.WriteLine("──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────");
         }
 
@@ -354,13 +363,13 @@ namespace HospitalManagement
                 doctorName = GetName(fileContent[3]);
             }
             //print out the ID, full name, doctor name, email, phone, and address
-            Console.WriteLine("{0}      | {1}       | {2}       | {3}       | {4} | {5}", fileContent[0], fileContent[2], doctorName, fileContent[4], fileContent[5], fileContent[6]);
+            Console.WriteLine(String.Format("{0,-6} | {1,-20} | {2,-20} | {3, -25} | {4,-20} | {5, -30}", fileContent[0], fileContent[2], doctorName, fileContent[4], fileContent[5], fileContent[6]));
         }
 
         //The header for all appointment screens
         public static void PrintAppointmentHeader()
         {
-            Console.WriteLine("Doctor       | Patient             | Description");
+            Console.WriteLine(String.Format("{0,-20} | {1,-20} | {2,-20}", "Doctor", "Patient", "Description"));
             Console.WriteLine("──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────");
         }
 
@@ -370,7 +379,7 @@ namespace HospitalManagement
             string doctorName = GetName(fileContent[0]);
             string patientName = GetName(fileContent[1]);
             //Print out the doctor's name, patient name and appointment details
-            Console.WriteLine("{0}       | {1}       | {2}       ", doctorName, patientName, fileContent[2]);
+            Console.WriteLine(String.Format("{0,-20} | {1,-20} | {2,-20}", doctorName, patientName, fileContent[2]));
         }
 
         //Add a user. Create a file at the end
